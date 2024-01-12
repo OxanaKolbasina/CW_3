@@ -22,3 +22,4 @@ Description
 
 
 Commands
+Для запуска проекта надо запустить файл main.py.
