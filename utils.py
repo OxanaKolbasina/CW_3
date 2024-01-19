@@ -1,14 +1,15 @@
 import json
 
-from src.models.operation import Operation
+from models.operation import Operation
 
 
-def load_operations(path: str) -> list[dict]:
+def load_operations(path: str):
+    print(path)
     with open(path) as file:
         return json.load(file)
 
 
-def get_operation_instances(operations: list[dict]) -> list[Operation]:
+def get_operation_instances(operations):
     list_ = []
     for operation in operations:
         if operation:
@@ -17,16 +18,16 @@ def get_operation_instances(operations: list[dict]) -> list[Operation]:
                     pk=operation["id"],
                     state=operation["state"],
                     date=operation["date"],
-                    operation_amount=operation["opertion_amount"],
+                    operation_amount=operation["operationAmount"],
                     description=operation["description"],
-                    _from=operation.get["_from",""],
-                    _to=operation["_to"],
+                    _from=operation.get("from",""),
+                    _to=operation["to"],
                 )
             )
-    return  list_
+    return list_
 
 
-def get_executed_operations(operations: list[Operation]) -> list[Operation]:
+def get_executed_operations(operations):
     operation_list = []
     for operation in operations:
         if operation.state == "EXECUTED":
@@ -34,24 +35,9 @@ def get_executed_operations(operations: list[Operation]) -> list[Operation]:
     return operation_list
 
 
-def sort_operations(operations: list[Operation]) -> list[Operation]:
+def sort_operations(operations):
     new_list_ = []
     for operation in operations:
-        new_list_.append(operation)
+        if operation.state == "EXECUTED":
+            new_list_.append(operation)
     return new_list_
-
-
-
-
-
-
-
-
-
-
-
-            )
-
-        )
-
-

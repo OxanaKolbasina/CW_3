@@ -24,23 +24,21 @@ class Operation:
 
     def convert_date(self, iso_date: str):
         date = datetime.fromisoformat(iso_date)
-        return date.strftime("%d.%m/%Y")
+        return date.strftime("%d.%m.%Y")
 
 
     def convert_payment(self, payment: str):
         if payment:
-            if payment.startswith("..."):
-                ...
+            if payment.startswith("**XXXX"):
+                return payment
             else:
-                ...
-            return ""
+                return f"**XXXX {payment}"
+            return "XXXX XX** **** XXXX " or "**XXXX"
+        return ""
 
 
-        def __str__(self):
-            return (f"{self.date} {self.description}"
-                    f"{self._from} -> {self._to}"
-                    f"{self.operation_amount['amount']}{self.operation_amount['name']}")
-
-
-
+    def __str__(self):
+        return (f"{self.date} {self.description}\n"
+                f"{self._from} =-> {self._to}\n"
+                f"{self.operation_amount['amount']} {self.operation_amount['name']}\n")
 
