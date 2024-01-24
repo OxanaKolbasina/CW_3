@@ -14,11 +14,11 @@ class Operation:
     ):
         self.pk = pk
         self.state = state
-        self.date = self.convert_date(date)
+        self.date = date
         self.operation_amount = operation_amount
         self.description = description
-        self._from = self.convert_payment(_from)
-        self._to = self.convert_payment(_to)
+        self._from = self.convert_payment_from(_from)
+        self._to = self.convert_payment_to(_to)
 
 
 
@@ -27,18 +27,23 @@ class Operation:
         return date.strftime("%d.%m.%Y")
 
 
-    def convert_payment(self, payment: str):
+    def convert_payment_from(self, payment: str):
         if payment:
-            if payment.startswith("**XXXX"):
-                return payment
-            else:
-                return f"**XXXX {payment}"
-            return "XXXX XX** **** XXXX " or "**XXXX"
+            payment_list = payment.split()
+            payment = payment_list.pop()
+            card_name = " ".join(payment_list)
+            return card_name+f" {payment[:4]} {payment[4:6]}** **** {payment[-4:]}"
+
         return ""
+    def convert_payment_to(self, payment: str):
+        payment_list = payment.split()
+        payment = payment_list.pop()
+        card_name = " ".join(payment_list)
+        return card_name+f" ** {payment[-4:]}"
 
 
     def __str__(self):
         return (f"{self.date} {self.description}\n"
                 f"{self._from} =-> {self._to}\n"
-                f"{self.operation_amount['amount']} {self.operation_amount['name']}\n")
+                f"{self.operation_amount['amount']} {self.operation_amount['currency']['name']}\n")
 

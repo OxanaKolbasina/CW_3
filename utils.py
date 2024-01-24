@@ -5,7 +5,7 @@ from models.operation import Operation
 
 def load_operations(path: str):
     print(path)
-    with open(path) as file:
+    with open(path, encoding="utf-8") as file:
         return json.load(file)
 
 
@@ -36,8 +36,5 @@ def get_executed_operations(operations):
 
 
 def sort_operations(operations):
-    new_list_ = []
-    for operation in operations:
-        if operation.state == "EXECUTED":
-            new_list_.append(operation)
-    return new_list_
+   operations = sorted(operations, key=lambda x: x.date,reverse=True)
+   return operations
