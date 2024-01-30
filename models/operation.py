@@ -14,7 +14,7 @@ class Operation:
     ):
         self.pk = pk
         self.state = state
-        self.date = date
+        self.date = self.convert_date(date)
         self.operation_amount = operation_amount
         self.description = description
         self._from = self.convert_payment_from(_from)

@@ -9,7 +9,6 @@ def main():
     sorted_operations = sort_operations(executed_operations)
     five_operations = sorted_operations[:5]
     for operation in five_operations:
-        operation.date = operation.convert_date(operation.date)
         print(operation)
 
 
